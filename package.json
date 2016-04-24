@@ -1,0 +1,39 @@
+{
+  "name": "observ-varlist",
+  "main": "index.js",
+  "version": "0.0.0",
+  "description": "An observable list that can grow negatively or positively",
+  "license": "MIT",
+  "repository": "ajoslin/observ-list",
+  "author": {
+    "name": "Andrew Joslin",
+    "email": "andrewtjoslin@gmail.com",
+    "url": "ajoslin.com"
+  },
+  "scripts": {
+    "test": "standard && tape 'test/*.js' | tap-spec"
+  },
+  "keywords": [
+    "observ",
+    "list",
+    "array",
+    "object",
+    "varhash"
+  ],
+  "devDependencies": {
+    "observ-struct": "^6.0.0",
+    "standard": "^5.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.0.0"
+  },
+  "files": [
+    "index.js",
+    "to-array.js"
+  ],
+  "dependencies": {
+    "observ": "^0.2.0",
+    "observ-array": "^3.2.1",
+    "observ-value": "^1.0.0",
+    "observ-varhash": "^1.0.8"
+  }
+}
