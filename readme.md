@@ -14,7 +14,7 @@ $ npm install --save observ-varlist
 var ObservList = require('observ-varlist')
 var toArray = require('observ-varlist/to-array')
 
-var list = List(['b', 'c'])
+var list = ObservList(['b', 'c'])
 
 list.prepend('a')
 
