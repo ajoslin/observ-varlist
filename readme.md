@@ -5,14 +5,14 @@
 ## Install
 
 ```
-$ npm install --save observ-list
+$ npm install --save observ-varlist
 ```
 
 ## Usage
 
 ```js
-var ObservList = require('observ-list')
-var toArray = require('observ-list/to-array')
+var ObservList = require('observ-varlist')
+var toArray = require('observ-varlist/to-array')
 
 var list = List(['b', 'c'])
 
