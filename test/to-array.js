@@ -13,6 +13,11 @@ test('wrapped List to array', function (t) {
     1: '2'
   })
 
+  var array = toArray(list)
+
+  // Should be a wrapped observ-array
+  t.equal(typeof array, 'function')
+  t.equal(typeof array.set, 'function')
   t.deepEqual(toArray(list)(), ['0', '1', '2'])
   t.end()
 })

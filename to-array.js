@@ -9,7 +9,7 @@ module.exports = function toArray (list) {
   var count = value(list.count)
 
   for (var index = from, length = from + count; index < length; index++) {
-    array.push(value(list[index]))
+    array.push(list[index])
   }
 
   return isObserv ? ObservArray(array) : array
