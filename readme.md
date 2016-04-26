@@ -1,4 +1,4 @@
-# observ-varlist [![Build Status](https://travis-ci.org/ajoslin/observ-list.svg?branch=master)](https://travis-ci.org/ajoslin/observ-list)
+# observ-varlist [![Build Status](https://travis-ci.org/ajoslin/observ-varlist.svg?branch=master)](https://travis-ci.org/ajoslin/observ-list)
 
 > An observable list that can grow negatively or positively
 
