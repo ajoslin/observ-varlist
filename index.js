@@ -2,7 +2,6 @@
 
 var VarHash = require('observ-varhash')
 var Observ = require('observ')
-var extend = require('xtend')
 
 function identity (value) { return value }
 
@@ -19,7 +18,10 @@ function ObservList (data, createItem) {
   var from = Observ(data.from || 0)
   var count = Observ(data.count || data.length || 0)
 
-  var obs = VarHash(initialState(data, from, count), Item)
+  var obs = VarHash(getItems(data, from(), count()), Item)
+
+  obs.put('from', from)
+  obs.put('count', count)
 
   var remove = obs.delete
   var put = obs.put
@@ -29,6 +31,9 @@ function ObservList (data, createItem) {
   setNonEnumerable(obs, 'reset', reset)
   setNonEnumerable(obs, 'prepend', prepend)
   setNonEnumerable(obs, 'append', append)
+  setNonEnumerable(obs, 'forEach', forEach)
+  setNonEnumerable(obs, 'map', map)
+  setNonEnumerable(obs, 'filter', filter)
 
   return obs
 
@@ -38,33 +43,36 @@ function ObservList (data, createItem) {
   }
 
   function reset (data) {
-    from.set(data.from || 0)
-    count.set(data.count || data.length || 0)
+    var newFrom = data.from || 0
+    var newCount = data.count || data.length || 0
 
-    var newState = initialState(data, from, count)
-    var combinedKeys = extend(newState, obs())
+    var items = getItems(data, newFrom, newCount)
+    var current = obs()
+    var minFrom = Math.min(newFrom, current.from)
+    var maxFrom = Math.max(newFrom, current.from)
+    var maxCount = Math.max(newCount, current.count)
 
-    for (var key in combinedKeys) {
-      if (!(key in newState)) {
-        remove(key)
-      } else {
-        put(key, newState[key])
+    for (var i = minFrom, ii = maxFrom + maxCount; i < ii; i++) {
+      var outOfBounds = i < newFrom || i > (newFrom + newCount - 1)
+      if (outOfBounds) {
+        remove(i)
+      } else if (!(i in current)) {
+        put(i, items[i])
       }
     }
+
+    from.set(newFrom)
+    count.set(newCount)
 
     return obs
   }
 
-  function initialState (data, from, count) {
-    var initial = {
-      from: from,
-      count: count
+  function getItems (data, from, count) {
+    var items = {}
+    for (var i = from, ii = from + count; i < ii; i++) {
+      items[i] = data[i] || null
     }
-    for (var i = from(), ii = count(); i < ii; i++) {
-      initial[i] = data[i] || null
-    }
-
-    return initial
+    return items
   }
 
   function prepend (item) {
@@ -77,7 +85,30 @@ function ObservList (data, createItem) {
   function append (item) {
     count.set(count() + 1)
 
-    put(count() - 1, item)
+    put(from() + count() - 1, item)
+  }
+
+  function forEach (iterator, context) {
+    for (var i = from(), ii = from() + count(); i < ii; i++) {
+      iterator.call(context, i, obs)
+    }
+  }
+
+  function map (iterator, context) {
+    var results = []
+    for (var i = from(), ii = from() + count(); i < ii; i++) {
+      results.push(iterator.call(context, i, obs))
+    }
+    return results
+  }
+
+  function filter (iterator, context) {
+    var results = []
+    for (var i = from(), ii = from() + count(); i < ii; i++) {
+      var result = iterator.call(context, i, obs)
+      if (result) results.push(result)
+    }
+    return results
   }
 }
 

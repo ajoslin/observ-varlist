@@ -73,29 +73,39 @@ test('prepend', function (t) {
 })
 
 test('list.reset', function (t) {
-  var list = List(['a', 'b', 'c'], Item)
-
-  t.deepEqual(list(), {
-    from: 0,
-    count: 3,
-    '0': {value: 'a', index: 0},
-    '1': {value: 'b', index: 1},
-    '2': {value: 'c', index: 2}
-  })
+  var list = List()
 
   list.reset({
     from: -1,
-    count: 2,
-    '-1': 'minus one',
-    '0': 'zero'
+    count: 4,
+    '-1': 'a',
+    '0': 'b',
+    '1': 'c',
+    '2': 'd'
   })
 
   t.deepEqual(list(), {
     from: -1,
-    count: 2,
-    '-1': {value: 'minus one', index: -1},
-    '0': {value: 'zero', index: 0},
-    '1': {value: null, index: 1}
+    count: 4,
+    '-1': 'a',
+    '0': 'b',
+    '1': 'c',
+    '2': 'd'
+  })
+
+  list.reset({
+    from: -2,
+    count: 3,
+    '-2': 'd',
+    '-1': 'a2' // this won't change, because existing indices are immutable
+  })
+
+  t.deepEqual(list(), {
+    from: -2,
+    count: 3,
+    '-2': 'd',
+    '-1': 'a',
+    '0': 'b'
   })
 
   t.end()
