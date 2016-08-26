@@ -28,6 +28,8 @@ toArray(list()) // => ['a', 'b', 'c']
 
 ## API
 
+Once an item at an index is set, it's immutable (its value can't be changed, only removed via `.reset()`).
+
 #### `ObservList([initial], [constructor])` -> `observList`
 
 ##### initial
@@ -59,6 +61,10 @@ Returned from the ObservList constructor, this is an observable with the followi
 ##### `list.reset(data)`
 
 Resets the list. Data is either an array or an object containing `from: Number`, `count: Number`, and optional indices containing data between `from` and `from + count`.
+
+##### `list.forEach, list.map, list.filter`
+
+Convenience functions that return an array.
 
 ## License
 
