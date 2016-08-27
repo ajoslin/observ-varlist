@@ -110,3 +110,24 @@ test('list.reset', function (t) {
 
   t.end()
 })
+
+test('list.forEach', function (t) {
+  var list = List({
+    from: -1,
+    count: 2,
+    '-1': 'a',
+    0: 'b'
+  })
+
+  var calls = []
+  list.forEach(function (value, index) {
+    calls.push({value, index})
+  })
+
+  t.deepEqual(calls, [
+    {value: 'a', index: -1},
+    {value: 'b', index: 0}
+  ])
+
+  t.end()
+})

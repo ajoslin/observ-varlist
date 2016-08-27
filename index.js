@@ -90,14 +90,14 @@ function ObservList (data, createItem) {
 
   function forEach (iterator, context) {
     for (var i = from(), ii = from() + count(); i < ii; i++) {
-      iterator.call(context, i, obs)
+      iterator.call(context, obs.get(i), i, obs)
     }
   }
 
   function map (iterator, context) {
     var results = []
     for (var i = from(), ii = from() + count(); i < ii; i++) {
-      results.push(iterator.call(context, i, obs))
+      results.push(iterator.call(context, obs.get(i), i, obs))
     }
     return results
   }
@@ -105,7 +105,7 @@ function ObservList (data, createItem) {
   function filter (iterator, context) {
     var results = []
     for (var i = from(), ii = from() + count(); i < ii; i++) {
-      var result = iterator.call(context, i, obs)
+      var result = iterator.call(context, obs.get(i), i, obs)
       if (result) results.push(result)
     }
     return results
