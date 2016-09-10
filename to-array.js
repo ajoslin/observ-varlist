@@ -9,6 +9,7 @@ module.exports = function toArray (list) {
   var arrayIndex = 0
 
   for (var index = from, length = from + count; index < length; index++) {
+    if (list[index] == null) continue
     array[arrayIndex++] = list[index]
   }
 
