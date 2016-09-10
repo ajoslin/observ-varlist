@@ -5,12 +5,11 @@ module.exports = function toArray (list) {
 
   var from = isObserv ? list.from() : list.from
   var count = isObserv ? list.count() : list.count
-  var array = new Array(from + count)
-  var arrayIndex = 0
+  var array = new Array()
 
   for (var index = from, length = from + count; index < length; index++) {
     if (list[index] == null) continue
-    array[arrayIndex++] = list[index]
+    array.push(list[index])
   }
 
   return isObserv ? ObservArray(array) : array
