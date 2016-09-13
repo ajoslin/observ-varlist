@@ -97,15 +97,15 @@ test('list.reset', function (t) {
     from: -2,
     count: 3,
     '-2': 'd',
-    '-1': 'a2' // this won't change, because existing indices are immutable
+    '-1': 'a2'
   })
 
   t.deepEqual(list(), {
     from: -2,
     count: 3,
     '-2': 'd',
-    '-1': 'a',
-    '0': 'b'
+    '-1': 'a2',
+    '0': null // this was not provided in the reset
   })
 
   t.end()

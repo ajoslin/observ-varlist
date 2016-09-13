@@ -46,8 +46,9 @@ function ObservList (data, createItem) {
     var newFrom = data.from || 0
     var newCount = data.count || data.length || 0
 
-    var items = getItems(data, newFrom, newCount)
     var current = obs()
+    var next = getItems(data, newFrom, newCount)
+
     var minFrom = Math.min(newFrom, current.from)
     var maxFrom = Math.max(newFrom, current.from)
     var maxCount = Math.max(newCount, current.count)
@@ -56,8 +57,8 @@ function ObservList (data, createItem) {
       var outOfBounds = i < newFrom || i > (newFrom + newCount - 1)
       if (outOfBounds) {
         remove(i)
-      } else if (!(i in current)) {
-        put(i, items[i])
+      } else {
+        put(i, next[i])
       }
     }
 

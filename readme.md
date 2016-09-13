@@ -28,8 +28,6 @@ toArray(list()) // => ['a', 'b', 'c']
 
 ## API
 
-Once an item at an index is set, it's immutable (its value can't be changed, only removed via `.reset()`).
-
 #### `ObservList([initial], [constructor])` -> `observList`
 
 ##### initial
