@@ -34,6 +34,7 @@ function ObservList (data, createItem) {
   setNonEnumerable(obs, 'forEach', forEach)
   setNonEnumerable(obs, 'map', map)
   setNonEnumerable(obs, 'filter', filter)
+  setNonEnumerable(obs, 'find', find)
 
   return obs
 
@@ -110,6 +111,13 @@ function ObservList (data, createItem) {
       if (result) results.push(result)
     }
     return results
+  }
+
+  function find (iterator, context) {
+    for (var i = from(), ii = from() + count(); i < ii; i++) {
+      var result = iterator.call(context, obs.get(i), i, obs)
+      if (result) return result
+    }
   }
 }
 

@@ -60,9 +60,9 @@ Returned from the ObservList constructor, this is an observable with the followi
 
 Resets the list. Data is either an array or an object containing `from: Number`, `count: Number`, and optional indices containing data between `from` and `from + count`.
 
-##### `list.forEach, list.map, list.filter`
+##### `list.forEach, list.map, list.filter, list.find`
 
-Convenience functions that return an array.
+Convenience functions that are like the array methods.
 
 ## License
 
